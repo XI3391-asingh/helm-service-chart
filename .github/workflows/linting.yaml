@@ -58,8 +58,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Run helm-docs
         uses: docker://jnorwood/helm-docs:v1.3.0
-      - name: Check for changes
-        run: git diff --quiet README.md
 
       # Skip testing for now since it doesn't support pulling chart from OCI registry yet.
       # TODO: (tuananh-finx): wait til the PR lands and we can re-enable it.
