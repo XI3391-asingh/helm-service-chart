@@ -54,19 +54,12 @@ jobs:
             --lint-conf ./.github/configs/lintconf.yaml \
             --helm-repo-extra-args finx="--username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}"
       
-      helm-docs-validate:
-        if: ${{ needs.changes.outputs.charts == 'true' }}
-        name: Helm Docs
-        needs:
-          - changes
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v2
-          - name: Run helm-docs
-            uses: docker://jnorwood/helm-docs:v1.3.0
-          - name: Check for changes
-            run: git diff --quiet README.md
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run helm-docs
+        uses: docker://jnorwood/helm-docs:v1.3.0
+      - name: Check for changes
+        run: git diff --quiet README.md
 
       # Skip testing for now since it doesn't support pulling chart from OCI registry yet.
       # TODO: (tuananh-finx): wait til the PR lands and we can re-enable it.
